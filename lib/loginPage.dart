@@ -18,7 +18,7 @@ class loginPage extends StatelessWidget {
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: new NetworkImage(
-                            "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbXqtN3%2FbtqVnXac77y%2FNJNLshntkG2bUgXPowj3hK%2Fimg.jpg"),
+                            "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F3jfzU%2FbtqZoxR9Uew%2FtTGr9rT4vypHlNHG2N3Sy1%2Fimg.gif"),
                         fit: BoxFit.fill)),
               ),
               TextPage()

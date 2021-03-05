@@ -1,199 +1,123 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class Diary{
-  var num;
-  DateTime day;
-  String diary;
-  String emotion;
-
-  Diary(this.num, this.day, this.emotion, this.diary);
-}
-
-class SignUpPage extends StatefulWidget {
-  @override
-  _SignUpPageState createState() => _SignUpPageState();
-}
-
-class _SignUpPageState extends State<SignUpPage> {
-  DateTime _selectedTime;
-  var _todayEmotion = '';
-  var _todayController = TextEditingController();
-  final maxLines = 18;
+class SignUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery
+        .of(context)
+        .size;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blueGrey,
-        leading:
-        IconButton(
-          icon: Icon(
-            Icons.clear_outlined,
-            color:Colors.black,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),// 뒤로가기 버튼
-        title: Text(
-          "Emotinal flowerpot",
-          style: TextStyle(
-            color: Colors.black,
-            fontFamily: 'IndieFlower',
-          ),
-        ),
-        actions: <Widget>[
-          IconButton(
-              icon: Icon(
-                Icons.add_outlined,
-                color:Colors.black,
-              ),
-              onPressed: () async{
-                SharedPreferences prefs = await SharedPreferences.getInstance();
-                int num = (prefs.getInt('num')?? 0) +1;
-                await prefs.setInt('num', num);
-
-                _addToday(Diary(num, _selectedTime, _todayEmotion,_todayController.text));
-              }
-          ),// 저장 버튼
-        ],
-        centerTitle: true,
-      ),
-      body: ListView(
-        children: <Widget>[
-          //buildTop()
-          SizedBox(height: 20,),
-          IconButton(
-            icon: Icon(
-              Icons.calendar_today_outlined,
-              color: Colors.black45,
-            ),
-            onPressed: (){
-              Future<DateTime> selectedDate = showDatePicker(
-                context: context,
-                initialDate: DateTime.now(),
-                firstDate: DateTime(2020),
-                lastDate: DateTime(2030),
-                builder: (BuildContext context, Widget child){
-                  return Theme(
-                    data: ThemeData.dark(),
-                    child: child,
-                  );
-                },
-              );
-              selectedDate.then((dateTime){
-                setState(() {
-                  _selectedTime = dateTime;
-                });
-              });
-            },
-          ),
-          //buildMiddle()
-          Column(
+      body: Center(
+        child: Container(
+          height: 700,
+          width: 450,
+          child: Stack(
             children: <Widget>[
-              SizedBox(height: 10,),
-              Text(
-                "오늘의 감정은 어떠신가요?",
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.grey,
-                  fontFamily: 'Gaegu',),
+              Container(
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: new NetworkImage(
+                            "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F3jfzU%2FbtqZoxR9Uew%2FtTGr9rT4vypHlNHG2N3Sy1%2Fimg.gif"),
+                        fit: BoxFit.fill)),
               ),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  IconButton(
-                    icon: Image.asset('assets/happy.png'),
-                    iconSize: 50,
-                    onPressed: () { _todayEmotion = 'happy';},
-                  ),
-                  IconButton(
-                    icon: Image.asset('assets/good.png'),
-                    iconSize: 50,
-                    onPressed: () { _todayEmotion = 'good';},
-                  ),
-                  IconButton(
-                    icon: Image.asset('assets/soso.png'),
-                    iconSize: 50,
-                    onPressed: () { _todayEmotion = 'soso';},
-                  ),
-                  IconButton(
-                    icon: Image.asset('assets/bad.png'),
-                    iconSize: 50,
-                    onPressed: () { _todayEmotion = 'bad';},
-                  ),
-                  IconButton(
-                    icon: Image.asset('assets/sad.png'),
-                    iconSize: 50,
-                    onPressed: () { _todayEmotion = 'sad';},
-                  ),
-                ],
-              ),
+              TextPage()
             ],
           ),
-          //buildBottom()
-          Container(
-            margin: EdgeInsets.all(12),
-            height: maxLines * 24.0,
-            child: Column(
-              children: [
-                TextField(
-                  style: TextStyle(fontFamily: 'Gaegu'),
-                  controller: _todayController,
-                  maxLines: maxLines,
-                  decoration: InputDecoration(
-                    hintText: "어떤 하루를 보냈나요?",
-                    fillColor: Colors.grey[300],
-                    filled: true,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
+}
 
-  void _addToday(Diary today){
-    //감정 카운트
-    //firesotre에 저장
-    Firestore.instance.collection('todayDiary').add({'number':today.num, 'day':today.day, 'emotion': today.emotion, 'diary': today.diary});
-    //저장 후 화면 리셋
-    _todayController.text = ' ';
-    _selectedTime = null;
+class TextPage extends StatefulWidget {
+  @override
+  _TextPageState createState() => _TextPageState();
+}
 
-    //저장되었습니다 띄우는 dialog
-    showDialog(
-        context: context,
-        //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            // RoundedRectangleBorder - Dialog 화면 모서리 둥글게 조절
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0)),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  "저장되었습니다.",
+class _TextPageState extends State<TextPage> {
+  var _User = TextEditingController();
+  var _emailUser = TextEditingController();
+  var _passwordUser = TextEditingController();
+  var _passwordMatch = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+        children: <Widget>[
+          Container(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(23.0),
+                      child: Text("Emotional Flowerpot",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontFamily: 'IndieFlower',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 30.0,
+                              color: Colors.black54)),
+                    ),
+                    SizedBox(height: 50,),
+                    TextField(
+                      style: TextStyle(fontFamily: 'Gaegu'),
+                      controller: _User,
+                      decoration: InputDecoration(
+                        hintText: "이름",
+                        fillColor: Colors.grey[300],
+                        filled: true,
+                      ),
+                    ),
+                    SizedBox(height: 10,),
+                    TextField(
+                      style: TextStyle(fontFamily: 'Gaegu'),
+                      controller: _emailUser,
+                      decoration: InputDecoration(
+                        hintText: "아이디",
+                        fillColor: Colors.grey[300],
+                        filled: true,
+                      ),
+                    ),
+                    SizedBox(height: 10,),
+                    TextField(
+                      obscureText: true,
+                      style: TextStyle(fontFamily: 'Gaegu'),
+                      controller: _passwordUser,
+                      decoration: InputDecoration(
+                        hintText: "비밀번호",
+                        fillColor: Colors.grey[300],
+                        filled: true,
+                      ),
+                    ),
+                    SizedBox(height: 10,),
+                    TextField(
+                      obscureText: true,
+                      style: TextStyle(fontFamily: 'Gaegu'),
+                      controller: _passwordUser,
+                      decoration: InputDecoration(
+                        hintText: "비밀번호 확인",
+                        fillColor: Colors.grey[300],
+                        filled: true,
+                      ),
+                    ),
+                    SizedBox(height: 30,),
+                    new MaterialButton(
+                      height: 40.0,
+                      color: Theme.of(context).primaryColor,
+                      textColor: Colors.white,
+                      child: new Text("가입하기"),
+                      onPressed: () => {Navigator.pushNamed(context, '/login')},
+                      splashColor: Colors.blueGrey,
+                    ),
+                    SizedBox(height: 10,),
+                  ],
                 ),
-              ],
-            ),
-            actions: <Widget>[
-              new FlatButton(
-                child: new Text("확인"),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
               ),
-            ],
-          );
-        });
+            ),
+          ),
+        ]);
   }
 }
