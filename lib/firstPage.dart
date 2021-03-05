@@ -67,7 +67,7 @@ class _TextPageState extends State<TextPage> {
           ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, '/home');
+                      Navigator.pushNamed(context, '/login');
                     },
             child: BlinkText('Press this!',
                 style: TextStyle(
