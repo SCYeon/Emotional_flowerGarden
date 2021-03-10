@@ -66,7 +66,7 @@ class _TextPageState extends State<TextPage> {
                       style: TextStyle(fontFamily: 'Gaegu'),
                       controller: _User,
                       decoration: InputDecoration(
-                        hintText: "이름",
+                        hintText: "NAME",
                         fillColor: Colors.grey[300],
                         filled: true,
                       ),
@@ -76,7 +76,7 @@ class _TextPageState extends State<TextPage> {
                       style: TextStyle(fontFamily: 'Gaegu'),
                       controller: _emailUser,
                       decoration: InputDecoration(
-                        hintText: "아이디",
+                        hintText: "ID",
                         fillColor: Colors.grey[300],
                         filled: true,
                       ),
@@ -87,7 +87,7 @@ class _TextPageState extends State<TextPage> {
                       style: TextStyle(fontFamily: 'Gaegu'),
                       controller: _passwordUser,
                       decoration: InputDecoration(
-                        hintText: "비밀번호",
+                        hintText: "PASSWORD",
                         fillColor: Colors.grey[300],
                         filled: true,
                       ),
@@ -96,9 +96,9 @@ class _TextPageState extends State<TextPage> {
                     TextField(
                       obscureText: true,
                       style: TextStyle(fontFamily: 'Gaegu'),
-                      controller: _passwordUser,
+                      controller: _passwordMatch,
                       decoration: InputDecoration(
-                        hintText: "비밀번호 확인",
+                        hintText: "CHECK PASSWORD",
                         fillColor: Colors.grey[300],
                         filled: true,
                       ),
@@ -108,7 +108,7 @@ class _TextPageState extends State<TextPage> {
                       height: 40.0,
                       color: Theme.of(context).primaryColor,
                       textColor: Colors.white,
-                      child: new Text("가입하기"),
+                      child: new Text("Sign Up"),
                       onPressed: () => {Navigator.pushNamed(context, '/login')},
                       splashColor: Colors.blueGrey,
                     ),
