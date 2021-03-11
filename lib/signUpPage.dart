@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 
-class NewUser{
+class UserInfo{
   var name;
   var email;
   var pw;
   var match_pw;
 
-  NewUser(this.name, this.email, this.pw, this.match_pw);
+  UserInfo(this.name, this.email, this.pw, this.match_pw);
 }
 class SignUpPage extends StatelessWidget {
   @override
@@ -120,7 +120,7 @@ class _TextPageState extends State<TextPage> {
                       textColor: Colors.white,
                       child: new Text("Sign Up"),
                       onPressed: () => {
-                        _addUser(NewUser(_User.text,_Email.text,_Password.text,_PasswordMatch.text)),
+                        _addUser(UserInfo(_User.text,_Email.text,_Password.text,_PasswordMatch.text)),
                           },
                       splashColor: Colors.blueGrey,
                     ),
@@ -133,7 +133,7 @@ class _TextPageState extends State<TextPage> {
         ]);
   }
 
-  void _addUser(NewUser user){
+  void _addUser(UserInfo user){
     if(user.pw == user.match_pw){
     //firesotre에 저장
     Firestore.instance.collection('User').add({'Name':user.name, 'Email':user.email, 'Password': user.pw, 'Match_password': user.match_pw});

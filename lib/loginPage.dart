@@ -2,6 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
+
+class User{
+  var email;
+  var pw;
+
+  User(this.email, this.pw);
+}
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
@@ -46,15 +55,15 @@ class _LoginPageState extends State<LoginPage> {
           key: _formKey,
           child: Column(
             children: <Widget>[
-              SizedBox(height: 100,),
-              Text("Emotional\nFlowerpot",
+              SizedBox(height: 130,),
+              Text("Emotional Flowerpot",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontFamily: 'IndieFlower',
                     fontWeight: FontWeight.bold,
-                    fontSize: 40.0,
+                    fontSize: 30.0,
                     color: Colors.black54)),
-              SizedBox(height: 50,),
+              SizedBox(height: 80,),
               TextFormField(
                 decoration: InputDecoration(
                   labelText: 'Email',
@@ -76,13 +85,20 @@ class _LoginPageState extends State<LoginPage> {
                 obscureText: true,
               ),
               SizedBox(height: 10,),
-              FlatButton(
-                child: Text('Sign in'),
+              ButtonTheme(
+                minWidth: 400.0,
+                child: RaisedButton(
+                  child: Text('Sign in',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.white)),
+                  color: Colors.blueGrey,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/home');
-                },
+                    _compareInfo(User(emailController.text, passwordController.text));
+                  },
+                ),
               ),
-              SizedBox(height: 20,),
+              SizedBox(height: 50,),
               Text("Don't have an account yet?"),
               SignInButton(
                 Buttons.Google,
@@ -93,11 +109,18 @@ class _LoginPageState extends State<LoginPage> {
                   Navigator.pushReplacementNamed(context, '/first');
                 },
               ),
-              FlatButton(
-                child: Text('Sign up'),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/signUp');
-                },
+              ButtonTheme(
+                minWidth: 220.0,
+                child: RaisedButton(
+                  child: Text('Sign up',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.black54)),
+                  color: Colors.white,
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/signUp');
+                  },
+              ),
               )
             ],
           ),
@@ -131,5 +154,44 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+  void _compareInfo(User user){
+    //아이디와 비밀번호가 일치한다면
+    if(user.email == 'User1234@gmail.com' && user.pw == 'User1234'){
+      Navigator.pushNamed(context, '/home');
+    }
+    //else
+    else{
+      {
+        showDialog(
+            context: context,
+            //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
+            barrierDismissible: false,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                // RoundedRectangleBorder - Dialog 화면 모서리 둥글게 조절
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0)),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "Please check your email or password",
+                    ),
+                  ],
+                ),
+                actions: <Widget>[
+                  new FlatButton(
+                    child: new Text("OK"),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              );
+            });
+      }
+    }
   }
 }
