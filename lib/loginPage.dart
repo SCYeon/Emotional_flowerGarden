@@ -49,80 +49,88 @@ class _LoginPageState extends State<LoginPage> {
 
   _buildBody() {
     return SingleChildScrollView(
-      child: Container(
-        padding: EdgeInsets.all(10),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: <Widget>[
-              SizedBox(height: 130,),
-              Text("Emotional Flowerpot",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontFamily: 'IndieFlower',
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30.0,
-                    color: Colors.black54)),
-              SizedBox(height: 80,),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Email',
-                  hintText: 'ex) abcd2039@xxx.com',
-                  border: OutlineInputBorder(),
+      child: Center(
+        child: Container(
+          padding: EdgeInsets.all(10),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: <Widget>[
+                SizedBox(height: 130,),
+                Text("Emotional Flowerpot",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontFamily: 'IndieFlower',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30.0,
+                      color: Colors.black54)),
+                SizedBox(height: 80,),
+                Container(
+                  width: 270.0,
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      labelText: 'Email',
+                      hintText: 'ex) abcd2039@xxx.com',
+                      border: OutlineInputBorder(),
+                    ),
+                    controller: emailController,
+                    keyboardType: TextInputType.emailAddress,
+                  ),
                 ),
-                controller: emailController,
-                keyboardType: TextInputType.emailAddress,
-              ),
-              // Container(height: 10,),
-              SizedBox(height: 10,),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                  hintText: 'ex) a1b2c3d4w5',
-                  border: OutlineInputBorder(),
+                // Container(height: 10,),
+                SizedBox(height: 10,),
+                Container(
+                  width: 270.0,
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      labelText: 'Password',
+                      hintText: 'ex) a1b2c3d4w5',
+                      border: OutlineInputBorder(),
+                    ),
+                    controller: passwordController,
+                    obscureText: true,
+                  ),
                 ),
-                controller: passwordController,
-                obscureText: true,
-              ),
-              SizedBox(height: 10,),
-              ButtonTheme(
-                minWidth: 400.0,
-                child: RaisedButton(
-                  child: Text('Sign in',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.white)),
-                  color: Colors.blueGrey,
-                  onPressed: () {
-                    _compareInfo(User(emailController.text, passwordController.text));
+                SizedBox(height: 10,),
+                ButtonTheme(
+                  minWidth: 100.0,
+                  child: RaisedButton(
+                    child: Text('Sign in',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.white)),
+                    color: Colors.blueGrey,
+                    onPressed: () {
+                      _compareInfo(User(emailController.text, passwordController.text));
+                    },
+                  ),
+                ),
+                SizedBox(height: 50,),
+                Text("Don't have an account yet?"),
+                SignInButton(
+                  Buttons.Google,
+                  onPressed: () async {
+                    setState(() => _loading = true);
+                    await _googleSignIn();
+                    setState(() => _loading = false);
+                    Navigator.pushReplacementNamed(context, '/first');
                   },
                 ),
-              ),
-              SizedBox(height: 50,),
-              Text("Don't have an account yet?"),
-              SignInButton(
-                Buttons.Google,
-                onPressed: () async {
-                  setState(() => _loading = true);
-                  await _googleSignIn();
-                  setState(() => _loading = false);
-                  Navigator.pushReplacementNamed(context, '/first');
-                },
-              ),
-              ButtonTheme(
-                minWidth: 220.0,
-                child: RaisedButton(
-                  child: Text('Sign up',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.black54)),
-                  color: Colors.white,
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/signUp');
-                  },
-              ),
-              )
-            ],
+                ButtonTheme(
+                  minWidth: 220.0,
+                  child: RaisedButton(
+                    child: Text('Sign up',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.black54)),
+                    color: Colors.white,
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/signUp');
+                    },
+                ),
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -156,42 +164,48 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
   void _compareInfo(User user){
-    //아이디와 비밀번호가 일치한다면
-    if(user.email == 'User1234@gmail.com' && user.pw == 'User1234'){
-      Navigator.pushNamed(context, '/home');
-    }
-    //else
-    else{
-      {
-        showDialog(
-            context: context,
-            //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
-            barrierDismissible: false,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                // RoundedRectangleBorder - Dialog 화면 모서리 둥글게 조절
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0)),
-                content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      "Please check your email or password",
+    //아이디,비밀번호가 저장되어있을때
+    Firestore.instance.collection('User').document().get().then(
+            (DocumentSnapshot ds) {
+              final userInfo = User(ds['Email'], ds['Password']);
+              if (user.email == ds.data['Email']) {
+              // 실행할 구문 추가
+              Navigator.pushNamed(context, '/home');
+            }
+        //else
+        else {
+          {
+            showDialog(
+                context: context,
+                //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
+                barrierDismissible: false,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    // RoundedRectangleBorder - Dialog 화면 모서리 둥글게 조절
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0)),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          "Please check your email or password",
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                actions: <Widget>[
-                  new FlatButton(
-                    child: new Text("OK"),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                ],
-              );
-            });
+                    actions: <Widget>[
+                      new FlatButton(
+                        child: new Text("OK"),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ],
+                  );
+                });
+          }
+        }
       }
-    }
+    );
   }
 }
