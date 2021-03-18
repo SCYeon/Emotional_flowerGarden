@@ -163,25 +163,29 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+
+  //오류 부분
   void _compareInfo(User user){
+    String inputID = "";
+    String inputPW = "";
+
     //아이디,비밀번호가 저장되어있을때
-    Firestore.instance.collection('User').document().get().then(
+    Firestore.instance.collection('User').document('tKayjG3BIFyDcZfGT750').get().then( // document에 지정문서가 아닌 전체 문서 부르는 방법은 없을까요...
             (DocumentSnapshot ds) {
-              final userInfo = User(ds['Email'], ds['Password']);
-              if (user.email == ds.data['Email']) {
-              // 실행할 구문 추가
+              inputID = ds.data["Email"]; //User컬렉션에 저장된 문서 중 Email값
+              inputPW = ds.data["Password"]; //User컬렉션에 저장된 문서 중 Password값
+
+              //user.email > user가 입력 한 이메일 / user.pw > user가 입력한 비밀번호
+              if (user.email == inputID && user.pw == inputPW) {
+              // home화면으로
               Navigator.pushNamed(context, '/home');
             }
-        //else
-        else {
-          {
-            showDialog(
+              else { //저장X인 경우 다이얼로그
+                showDialog(
                 context: context,
-                //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
                 barrierDismissible: false,
                 builder: (BuildContext context) {
                   return AlertDialog(
-                    // RoundedRectangleBorder - Dialog 화면 모서리 둥글게 조절
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0)),
                     content: Column(
@@ -203,9 +207,8 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   );
                 });
-          }
-        }
-      }
+              }
+            }
     );
   }
 }
