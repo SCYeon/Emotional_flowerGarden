@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
             builder: (_) => FirebaseProvider())
       ],
       child:*/ MaterialApp(
-      title: 'Emotional Flowerpot',
+      title: 'Emotional Garden',
       theme: ThemeData(
         fontFamily: 'Gaegu',
         primarySwatch: Colors.blueGrey,

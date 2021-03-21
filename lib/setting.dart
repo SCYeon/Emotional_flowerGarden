@@ -17,7 +17,7 @@ class _SettingPageState extends State<SettingPage> {
           centerTitle: true,
           backgroundColor: Colors.blueGrey,
           title: Text(
-            "Emotional Flowerpot",
+            "Emotional Garden",
             style: TextStyle(fontFamily: 'IndieFlower',),
           ),
         ),

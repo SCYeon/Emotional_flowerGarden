@@ -57,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               children: <Widget>[
                 SizedBox(height: 130,),
-                Text("Emotional Flowerpot",
+                Text("Emotional Garden",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontFamily: 'IndieFlower',

@@ -37,7 +37,7 @@ class _WritingPageState extends State<WritingPage> {
           },
         ),// 뒤로가기 버튼
         title: Text(
-          "Emotinal flowerpot",
+          "Emotinal Garden",
           style: TextStyle(
             color: Colors.black,
             fontFamily: 'IndieFlower',
@@ -161,7 +161,7 @@ class _WritingPageState extends State<WritingPage> {
   void _addToday(Diary today){
     //감정 카운트
     //firesotre에 저장
-    Firestore.instance.collection('TodayDiary').add({'number':today.num, 'day':today.day, 'emotion': today.emotion, 'diary': today.diary});
+    Firestore.instance.collection('todayDiary').add({'number':today.num, 'day':today.day, 'emotion': today.emotion, 'diary': today.diary});
     //저장 후 화면 리셋
     _todayController.text = ' ';
     _selectedTime = null;

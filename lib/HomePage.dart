@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           centerTitle: true,
           title: Text(
-            "Emotional Flowerpot",
+            "Emotional Garden",
           ),
         ),
         body: Container(
