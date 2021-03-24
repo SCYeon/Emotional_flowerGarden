@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "flowerbot-slxv",
+  "private_key_id": "60655c7831bbdb62f2e233033ec7eadda691f5c4",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCpNQKCPLHX30xe\nocpa+djj/Dm60LMh8gY1i5da6IGzkSyz0eSnM+SsaqTC9sUZlNzv+cO9xG1MmYE4\nEtITDFDOXAGhbHqjo20Y6LnOWwJ2NXWxFT5t0sqPYGbtQMkamJnkYL4BvpQDP0dS\nVfx/IBMAAeKiFYKNev8YVdteGhrnz8v9KfPK/mcU9hQyw+CHqPlCLOcg+pLgYX5U\nspkb7zxofjdbuVhjFzuPfr4RzbmhdIEv9OzDjDRYUo7K/uDcirf8N+9hDUzs+w30\nnht9tSRzUoEwkwFRqNztu4nyGnwtGIDNafD8elOLdzMMqXBPa0pZncDDPgS8iK3N\nkcHBQhijAgMBAAECggEALOC4Z559dMnu0XKL3xFBK0ascRYFTM2KRA1f+WaNb/jj\nKFZVFNu4nNo0FNmqcRyAdM2D0wMUEirskNi9CvxLOlBAxnWlGV2xA9hF36tXvc50\nBqGhyzMLMnfZFLgIHpu2xVG7U28ehrXzzqyrqXPyViAp4d9envOuUOAErLKzzCNr\nzxVlRL/y9M8Tz6PLcieNehAmTbzjIhOXwf6rpzvZ6bXuiewyz8m8sUAjeII0pnqD\neZgzGS7fyIazvpG95k0MmBJIxqLplezpuPBJUp5uvPe3omh6pbt1UJkzZ9msRDqP\n/ox6ybEtyoh5ETt7VTKpaVygcl9QieOid5RZJQpXwQKBgQDpe+YRXe+yCTqo3BX1\ng1I0+bVshKwDcXrFQcm/PHzHbhJb6EonJBpD0a9S5EHLVe+BQRnM40QxTA7vaS63\nKa8Kj3ne9A+LrEuMSzx9FbflBLuOK0mUwFj+R1K0lFY2I91f2KlS/tf4LMH1uESG\na+Tdkka/b7/bCgz99VrWeVJpMwKBgQC5hkjMZBXAYAizuvPcBlPEhj2ubMb2bQFi\nAjs27MxAK6Toy+iZIv9CGkoAvqaDJ4HoVl5H4tgndsxpQM0BFBtoEcUmiJEAPwdZ\nR60rQBSOh4+5SReg2TZB2y/HEJOj8UVvWdZsl0ajqJvLsZWJaUEbRjSLdX0ALSJm\nt67wzFjy0QKBgQCcJ1Akt1WTFdcUjjVlgRGe+o7a6BR/LQs2GBzM+LBfVP+UVlQZ\nv2yNhRSj9KMIUg4fvSF7RVgbPEoU1pz2xTsbbf/NHB+1g2L3jm4DHl5iHfsuR0cr\n5ETgs2Td/wN1rCDndGkyZ9ybT5vdMgMqf8iOY8FLUXrYDO3Jf6nkHTn/vwKBgQCE\nCel35meAshifahgy6SHnRa9Sm8KDEhOg4HuqXKAFr8o/kRhrHPhU4Ib4vredspmH\ndSjGutEiTS+wXVlKQjg7OiJ5iUrBxRoC1buOg53dzudgdH/nj5BJEKmRYN/jF01W\nsbalNIkm41J2h14pHQskUTQGaUjcvkK0nlhYsuc/cQKBgQCbkAqHwEDzGOHpXGJQ\nwVOXSqu7NwlXwsT7uCe03vTRIAJRlUf7yKeyvx39GB7XoGXEov7E5I6lmVuFn5lC\ntXkbiExDX9xqZNo5X8waafSr+hEAFXMk9tmmouBLdum+05wMWFYVh0Obv0q9P9N7\nQhu+VNQJQ/3zU0PdlpbN8JgUpg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "bot-admin@flowerbot-slxv.iam.gserviceaccount.com",
+  "client_id": "109712297409074819915",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/bot-admin%40flowerbot-slxv.iam.gserviceaccount.com"
+}

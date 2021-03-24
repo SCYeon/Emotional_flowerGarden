@@ -39,7 +39,7 @@ class _WritingPageState extends State<WritingPage> {
         ),
         // 뒤로가기 버튼
         title: Text(
-          "Emotinal flowerpot",
+          "Emotinal Garden",
           style: TextStyle(
             color: Colors.black,
             fontFamily: 'IndieFlower',

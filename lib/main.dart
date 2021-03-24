@@ -8,6 +8,7 @@ import 'package:emotional_flowerpot/writingPage.dart';
 import 'package:emotional_flowerpot/setting.dart';
 import 'package:emotional_flowerpot/developers.dart';
 import 'package:emotional_flowerpot/signUpPage.dart';
+import 'package:emotional_flowerpot/chatBotPage.dart';
 
 void main() {
   runApp(MyApp());
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         '/setting': (context) => SettingPage(),
         '/dev': (context) => DevelopersPage(),
         '/garden': (context) => gardenPage(),
+        '/chat': (context) => chatBotPage(),
       },
     );
   }

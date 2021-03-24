@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           centerTitle: true,
           title: Text(
-            "Emotional Flowerpot",
+            "Emotional Garden",
           ),
         ),
         body: Container(
@@ -130,7 +130,7 @@ Widget _homeMiddle(BuildContext context) {
             color: Colors.white,
             onPressed: () async {
 
-              Navigator.pushNamed(context, '/garden');
+              Navigator.pushNamed(context, '/chat');
             },
           ),
         ),
