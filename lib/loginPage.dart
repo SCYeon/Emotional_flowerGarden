@@ -176,13 +176,13 @@ class _LoginPageState extends State<LoginPage> {
     var saveID = "";
     String savePW = "";
 
-    var data = null;
+    var dataID = null;
+    var dataPW = null;
 
+    dataID = Firestore.instance.collection("User").where("Email", isEqualTo: InputUser.email);
+    dataPW = Firestore.instance.collection("User").where("Password", isEqualTo: InputUser.pw);
 
-    data = Firestore.instance.collection("User").where("email", isEqualTo: InputUser.email);
-    print(data);
-
-    if (data != null) {
+    if ((dataID != null)&&(dataPW != null)) {
       // home화면으로
       Navigator.pushNamed(context, '/home');
     }
