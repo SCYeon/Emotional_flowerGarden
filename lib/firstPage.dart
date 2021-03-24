@@ -48,7 +48,7 @@ class _TextPageState extends State<TextPage> {
                 children: <Widget>[
             Padding(
             padding: const EdgeInsets.all(23.0),
-            child: Text("Emotional\Garden",
+            child: Text("Emotional\nFlowerpot",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontFamily: 'IndieFlower',

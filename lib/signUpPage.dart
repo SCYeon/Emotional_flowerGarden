@@ -1,15 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
-
-class UserInfo{
-  var name;
-  var email;
-  var pw;
-  var match_pw;
-
-  UserInfo(this.name, this.email, this.pw, this.match_pw);
-}
 class SignUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -46,9 +36,9 @@ class TextPage extends StatefulWidget {
 
 class _TextPageState extends State<TextPage> {
   var _User = TextEditingController();
-  var _Email = TextEditingController();
-  var _Password = TextEditingController();
-  var _PasswordMatch = TextEditingController();
+  var _emailUser = TextEditingController();
+  var _passwordUser = TextEditingController();
+  var _passwordMatch = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +53,7 @@ class _TextPageState extends State<TextPage> {
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.all(23.0),
-                      child: Text("Emotional Garden",
+                      child: Text("Emotional Flowerpot",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontFamily: 'IndieFlower',
@@ -84,7 +74,7 @@ class _TextPageState extends State<TextPage> {
                     SizedBox(height: 10,),
                     TextField(
                       style: TextStyle(fontFamily: 'Gaegu'),
-                      controller: _Email,
+                      controller: _emailUser,
                       decoration: InputDecoration(
                         hintText: "ID",
                         fillColor: Colors.grey[300],
@@ -95,7 +85,7 @@ class _TextPageState extends State<TextPage> {
                     TextField(
                       obscureText: true,
                       style: TextStyle(fontFamily: 'Gaegu'),
-                      controller: _Password,
+                      controller: _passwordUser,
                       decoration: InputDecoration(
                         hintText: "PASSWORD",
                         fillColor: Colors.grey[300],
@@ -106,7 +96,7 @@ class _TextPageState extends State<TextPage> {
                     TextField(
                       obscureText: true,
                       style: TextStyle(fontFamily: 'Gaegu'),
-                      controller: _PasswordMatch,
+                      controller: _passwordMatch,
                       decoration: InputDecoration(
                         hintText: "CHECK PASSWORD",
                         fillColor: Colors.grey[300],
@@ -119,9 +109,7 @@ class _TextPageState extends State<TextPage> {
                       color: Theme.of(context).primaryColor,
                       textColor: Colors.white,
                       child: new Text("Sign Up"),
-                      onPressed: () => {
-                        _addUser(UserInfo(_User.text,_Email.text,_Password.text,_PasswordMatch.text)),
-                          },
+                      onPressed: () => {Navigator.pushNamed(context, '/login')},
                       splashColor: Colors.blueGrey,
                     ),
                     SizedBox(height: 10,),
@@ -131,71 +119,5 @@ class _TextPageState extends State<TextPage> {
             ),
           ),
         ]);
-  }
-
-  void _addUser(UserInfo user){
-    if(user.pw == user.match_pw){
-    //firesotre에 저장
-    Firestore.instance.collection('User').add({'Name':user.name, 'Email':user.email, 'Password': user.pw, 'Match_password': user.match_pw});
-    //저장되었습니다 띄우는 dialog
-    showDialog(
-        context: context,
-        //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            // RoundedRectangleBorder - Dialog 화면 모서리 둥글게 조절
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0)),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  "Save",
-                ),
-              ],
-            ),
-            actions: <Widget>[
-              new FlatButton(
-                child: new Text("OK"),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/login');
-                },
-              ),
-            ],
-          );
-        });
-    }
-    else{
-      showDialog(
-          context: context,
-          //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              // RoundedRectangleBorder - Dialog 화면 모서리 둥글게 조절
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0)),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    "Passwords do not match",
-                  ),
-                ],
-              ),
-              actions: <Widget>[
-                new FlatButton(
-                  child: new Text("OK"),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-              ],
-            );
-          });
-    }
   }
 }

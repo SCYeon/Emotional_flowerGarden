@@ -3,8 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import 'HomePage2.dart';
-
 class TodayDiary {
   var num;
   Timestamp day;
@@ -86,16 +84,65 @@ class ListPageBody extends StatelessWidget {
             //4.마지막 삭제 아이콘
             trailing: IconButton(
               icon: Icon(Icons.delete_forever),
-              onPressed: () {
+              onPressed: () async {
                 Firestore.instance.collection('todayDiary')
                     .document(doc.documentID)
                     .delete();
+
+                int c = 0;
+                if (todayDiary.emotion == 'happy') {
+                  Firestore.instance.collection("flower").document("count").get()
+                      .then((DocumentSnapshot ds) {
+                    c = ds.data["blueCount"];
+                    Firestore.instance.collection("flower").document('list').updateData({
+                      "flower_list":FieldValue.arrayRemove([c+200-1]) });
+                    c = c - 1;
+                    Firestore.instance.collection('flower').document('count').updateData({'blueCount': c});});
+                }
+                else if (todayDiary.emotion == 'good') {
+                  Firestore.instance..collection("flower").document("count").get()
+                      .then((DocumentSnapshot ds) {
+                    c = ds.data["greenCount"];
+                    Firestore.instance.collection("flower").document('list').updateData({
+                      "flower_list":FieldValue.arrayRemove([c+500-1]) });
+                    c = c - 1;
+                    Firestore.instance..collection('flower').document('count').updateData({'greenCount': c});});
+                }
+                else if (todayDiary.emotion == 'soso') {
+
+                  Firestore.instance.collection("flower").document("count").get()
+                      .then((DocumentSnapshot ds) {
+                    c = ds.data["purpleCount"];
+                  Firestore.instance.collection("flower").document('list').updateData({
+                      "flower_list":FieldValue.arrayRemove([c+300-1]) });
+                    c = c - 1;
+                    Firestore.instance.collection('flower').document('count').updateData({'purpleCount': c});});
+                }
+                else if (todayDiary.emotion == 'bad') {
+                  Firestore.instance.collection("flower").document("count").get()
+                      .then((DocumentSnapshot ds) {
+                    c = ds.data["redCount"];
+                    Firestore.instance.collection("flower").document('list').updateData({
+                      "flower_list":FieldValue.arrayRemove([c+100-1]) });
+                    c = c - 1;
+                    Firestore.instance.collection('flower').document('count').updateData({'redCount': c});});
+                }
+                else if (todayDiary.emotion == 'sad') {
+                  Firestore.instance.collection("flower").document("count").get()
+                      .then((DocumentSnapshot ds) {
+                    c = ds.data["yellowCount"];
+                    Firestore.instance.collection("flower").document('list').updateData({
+                      "flower_list":FieldValue.arrayRemove([c+400-1]) });
+                    c = c - 1;
+                    Firestore.instance.collection('flower').document('count').updateData({'yellowCount': c});});
+                }
               },
             ),
           ),
         ),
       );
     }
+
 
     //배경색을 삽입하기 위해 Scaffold 사용
     return Scaffold (

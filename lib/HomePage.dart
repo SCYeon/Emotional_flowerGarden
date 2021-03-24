@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:emotional_flowerpot/HomePage2.dart';
 import 'package:intl/intl.dart';
+import 'gardenPage2.dart';
 
 class Date {
   var date;
@@ -20,15 +20,16 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           centerTitle: true,
           title: Text(
-            "Emotional Garden",
+            "Emotional Flowerpot",
           ),
         ),
         body: Container(
           decoration: BoxDecoration(
-              color: Colors.white,
-              image: DecorationImage(
+            color: Colors.white,
+            /*image: DecorationImage(
                   image: AssetImage("assets/background2.png"),
-                  fit: BoxFit.cover)),
+                  fit: BoxFit.cover)*/
+          ),
           child: Scaffold(
             backgroundColor: Colors.transparent,
             body: Column(
@@ -102,30 +103,67 @@ Widget _homeTop() {
 
 Widget _homeMiddle(BuildContext context) {
   return Center(
-    child: Container(
-      child: CustomMultiChildLayout(
-        delegate: MyDelegate(objectCenter: FractionalOffset(0.5, 1.15)),
-        children: [
-          LayoutId(
-            id: _Slot.circle,
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.23,
-              child: Image.asset('assets/flowerpot.png'),
+      child: Column(
+    children: <Widget>[
+      Expanded(flex: 1, child: SizedBox()),
+      Expanded(
+        flex: 4,
+        child: SizedBox(
+          height: 430,
+          width: 330,
+          child: RaisedButton(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                new LayoutBuilder(
+
+                  builder: (context, constraint) {
+                    return new Image(
+                        image: AssetImage('assets/bird_chat.PNG'),fit: BoxFit.fill
+                        );
+                  },
+                ),
+              ],
             ),
+            shape: RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(20.0)),
+            color: Colors.white,
+            onPressed: () async {
+
+              Navigator.pushNamed(context, '/garden');
+            },
           ),
-          LayoutId(
-            id: _Slot.image,
-            // Use AspectRatio to emulate an image
-            child: AspectRatio(
-              aspectRatio: 1.25,
-              child: dateTimeImage(context),
-            ),
-          ),
-        ],
+        ),
       ),
-    ),
-  );
+      Expanded(
+        flex: 1,
+        child: SizedBox(
+          height: 10,
+          width: 120,
+          child: RaisedButton(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                new LayoutBuilder(
+
+                  builder: (context, constraint) {
+                    return new Text('가든으로 가기');
+                  },
+                ),
+              ],
+            ),
+            shape: RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(20.0)),
+            color: Colors.white,
+            onPressed: () async {
+
+              Navigator.pushNamed(context, '/garden');
+            },
+          ),
+        ),
+      ),
+    ],
+  ));
 }
 
 Widget _homeBottom(BuildContext context) {
@@ -138,6 +176,7 @@ Widget _homeBottom(BuildContext context) {
         Expanded(flex: 1, child: SizedBox()),
         Expanded(
           flex: 2,
+          // ignore: deprecated_member_use
           child: RaisedButton(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -154,7 +193,7 @@ Widget _homeBottom(BuildContext context) {
               ],
             ),
             shape: RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(20.0)),
+                borderRadius: new BorderRadius.circular(15.0)),
             color: Colors.white,
             onPressed: () {
               Navigator.pushNamed(context, '/list');
@@ -164,6 +203,7 @@ Widget _homeBottom(BuildContext context) {
         Expanded(flex: 1, child: SizedBox()),
         Expanded(
           flex: 2,
+          // ignore: deprecated_member_use
           child: RaisedButton(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -180,7 +220,7 @@ Widget _homeBottom(BuildContext context) {
               ],
             ),
             shape: RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(20.0)),
+                borderRadius: new BorderRadius.circular(15.0)),
             color: Colors.white,
             onPressed: () {
               Navigator.pushNamed(context, '/write');
@@ -190,6 +230,7 @@ Widget _homeBottom(BuildContext context) {
         Expanded(flex: 1, child: SizedBox()),
         Expanded(
           flex: 2,
+          // ignore: deprecated_member_use
           child: RaisedButton(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -206,7 +247,7 @@ Widget _homeBottom(BuildContext context) {
               ],
             ),
             shape: RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(20.0)),
+                borderRadius: new BorderRadius.circular(15.0)),
             color: Colors.white,
             onPressed: () {
               Navigator.pushNamed(context, '/setting');
@@ -217,41 +258,4 @@ Widget _homeBottom(BuildContext context) {
       ],
     ),
   );
-}
-
-enum _Slot {
-  image,
-  circle,
-}
-
-class MyDelegate extends MultiChildLayoutDelegate {
-  final FractionalOffset objectCenter;
-
-  MyDelegate({@required this.objectCenter});
-
-  @override
-  void performLayout(Size size) {
-    Size imageSize = Size.zero;
-    Offset imagePos = Offset.zero;
-
-    if (hasChild(_Slot.image)) {
-      imageSize = layoutChild(_Slot.image, BoxConstraints.loose(size));
-
-      // Center the image in the available space
-      imagePos = (size - imageSize as Offset) * 0.5;
-      positionChild(_Slot.image, imagePos);
-    }
-
-    if (hasChild(_Slot.circle)) {
-      Size childSize = layoutChild(_Slot.circle, BoxConstraints());
-      positionChild(
-          _Slot.circle,
-          imagePos +
-              objectCenter.alongSize(imageSize) -
-              childSize.center(Offset.zero));
-    }
-  }
-
-  @override
-  bool shouldRelayout(MultiChildLayoutDelegate oldDelegate) => false;
 }
