@@ -173,23 +173,22 @@ class _LoginPageState extends State<LoginPage> {
 
   //오류부분
   Widget _buildLogin(User InputUser){
-    bool dataID = false;
     bool dataPW = false;
 
+    List<String> dataID = ["false"];
     //dataID 와 dataPW 가 있는 documents가 있을때 실행하는 실행문을 적는게 아닌가? 왜 false지?
-    Firestore.instance.collection("User").where("Email", isEqualTo: InputUser.email)
-        .getDocuments().then((querySnapshot) => {
-          dataPW = true
-          });
+    Stream<QuerySnapshot> data = Firestore.instance.collection("User").where("Email", isEqualTo: InputUser.email).snapshots();
 
-    Firestore.instance.collection("User").where("Password", isEqualTo: InputUser.pw)
-        .getDocuments().then((querySnapshot) => {
-          dataPW = true
-          });
+    data.forEach((user){
+      user.documents.asMap().forEach((num, data){
+        num = 0;
+        dataID[num] = "true";
+      });
+    });
+
     print("INPUT값: ${InputUser.email}, ${InputUser.pw}\n dataID 값: $dataID, dataPW 값: $dataPW");
 
-
-    if ((dataID == true)&&(dataPW == true)) {
+    if ((dataID[0] == "true")) {
       // home화면으로
       Navigator.pushNamed(context, '/home');
     }
