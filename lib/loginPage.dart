@@ -186,7 +186,7 @@ class _LoginPageState extends State<LoginPage> {
         .getDocuments().then((querySnapshot) => {
           dataPW = true
           });
-    print("dataID 값: $dataID, dataPW 값: $dataPW");
+    print("INPUT값: ${InputUser.email}, ${InputUser.pw}\n dataID 값: $dataID, dataPW 값: $dataPW");
 
 
     if ((dataID == true)&&(dataPW == true)) {
