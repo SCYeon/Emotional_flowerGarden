@@ -54,9 +54,10 @@ class _LoginPageState extends State<LoginPage> {
     return Center(child: CircularProgressIndicator(),);
   }
 
-  _buildBody() {
-    return SingleChildScrollView(
-      child: Center(
+  _buildBody(DocumentSnapshot doc) {
+    return ListView(
+      children: <Widget> [
+        SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.all(10),
           child: Form(
@@ -108,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
                             color: Colors.white)),
                     color: Colors.blueGrey,
                     onPressed: () {
-                      _buildLogin(User(emailController.text, passwordController.text));
+                      _buildLogin(User(emailController.text, passwordController.text), doc);
                     },
                   ),
                 ),
@@ -141,128 +142,89 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
       ),
-    );
+      ]);
   }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery
-        .of(context)
-        .size;
+      .of(context)
+      .size;
     return Scaffold(
-      body: Center(
-        child: Container(
-          height: 700,
-          width: 450,
-          child: Stack(
-            children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: new NetworkImage(
-                            "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F3jfzU%2FbtqZoxR9Uew%2FtTGr9rT4vypHlNHG2N3Sy1%2Fimg.gif"),
-                        fit: BoxFit.fill)),
-              ),
-              _loading ? _buildLoading() : _buildBody(),
-            ],
-          ),
-        ),
-      ),
-    );
+      body: StreamBuilder<QuerySnapshot>(
+        //날짜 순으로 정렬
+          stream: Firestore.instance.collection("User").snapshots(),
+          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (!snapshot.hasData) {
+              return CircularProgressIndicator();
+            }
+            final documents = snapshot.data.documents;
+            //리스트 형식
+            return ListView(
+              children: <Widget>[
+                Center(
+                child: Container(
+                  height: 700,
+                  width: 450,
+                  child: Stack(
+                    children: <Widget>[
+                      Container(
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: new NetworkImage(
+                                    "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F3jfzU%2FbtqZoxR9Uew%2FtTGr9rT4vypHlNHG2N3Sy1%2Fimg.gif"
+                                ),
+                                fit: BoxFit.fill)),
+                      ),
+                      _loading ? _buildLoading() : documents.map<Widget>((doc) =>
+                          _buildBody(doc)).toList(),
+                    ],
+                  ),
+                ),
+              ),]
+            );
+          }),
+      );
   }
 
   //오류부분
-  Widget _buildLogin(User InputUser){
-    bool dataPW = false;
+  Widget _buildLogin(User InputUser, DocumentSnapshot doc) {
+    var dataID;
+    var dataPW;
 
-    List<String> dataID = ["false"];
-    //dataID 와 dataPW 가 있는 documents가 있을때 실행하는 실행문을 적는게 아닌가? 왜 false지?
-    Stream<QuerySnapshot> data = Firestore.instance.collection("User").where("Email", isEqualTo: InputUser.email).snapshots();
-
-    data.forEach((user){
-      user.documents.asMap().forEach((num, data){
-        num = 0;
-        dataID[num] = "true";
-      });
-    });
-
-    print("INPUT값: ${InputUser.email}, ${InputUser.pw}\n dataID 값: $dataID, dataPW 값: $dataPW");
-
-    if ((dataID[0] == "true")) {
-      // home화면으로
-      Navigator.pushNamed(context, '/home');
-    }
-    else { //저장X인 경우 다이얼로그
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0)),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    "Please check your email or password",
+      if ((doc["Email"] == "${InputUser.email}") && (doc["Password"] == "${InputUser.pw}")) {
+        Navigator.pushNamed(context, '/home');
+      }
+      else {
+        showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0)),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "Please check your email or password",
+                    ),
+                  ],
+                ),
+                actions: <Widget>[
+                  new FlatButton(
+                    child: new Text("OK"),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                   ),
                 ],
-              ),
-              actions: <Widget>[
-                new FlatButton(
-                  child: new Text("OK"),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-              ],
-            );
-          });
+              );
+            });
+      }
     }
-/*
-    //아이디,비밀번호가 저장되어있을때
-    Firestore.instance.collection('User').document().get()
-        .then((DocumentSnapshot ds) {
-          saveID = ds.data["email"]; //User컬렉션에 저장된 문서 중 Email값
-          savePW = ds.data["password"]; //User컬렉션에 저장된 문서 중 Password값
-
-          if (InputUser.email == saveID && InputUser.pw == savePW) {
-            // home화면으로
-            Navigator.pushNamed(context, '/home');
-          }
-          else { //저장X인 경우 다이얼로그
-            showDialog(
-                context: context,
-                barrierDismissible: false,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0)),
-                    content: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          "Please check your email or password",
-                        ),
-                      ],
-                    ),
-                    actions: <Widget>[
-                      new FlatButton(
-                        child: new Text("OK"),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                    ],
-                  );
-                });
-          }
-        }
-    );*/
-  }
-  }
+}
 
 
 
