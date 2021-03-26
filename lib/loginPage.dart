@@ -191,38 +191,53 @@ class _LoginPageState extends State<LoginPage> {
   Widget _buildLogin(User InputUser, DocumentSnapshot doc) {
     var dataID;
     var dataPW;
+//dataID 와 dataPW 가 있는 documents가 있을때 실행하는 실행문을 적는게 아닌가? 왜 false지?
+    Firestore.instance.collection("User").where("Email", isEqualTo: InputUser.email)
+        .getDocuments().then((querySnapshot) => {
+      dataID = true,
+      print("dataID값 : $dataID"),
+    });
 
-      if ((doc["Email"] == "${InputUser.email}") && (doc["Password"] == "${InputUser.pw}")) {
-        Navigator.pushNamed(context, '/home');
-      }
-      else {
-        showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0)),
-                content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      "Please check your email or password",
-                    ),
-                  ],
-                ),
-                actions: <Widget>[
-                  new FlatButton(
-                    child: new Text("OK"),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
+    Firestore.instance.collection("User").where("Password", isEqualTo: InputUser.pw)
+        .getDocuments().then((querySnapshot) => {
+      dataPW = true
+    });
+
+    print("INPUT값: ${InputUser.email}, ${InputUser.pw}\n dataID 값: $dataID, dataPW 값: $dataPW");
+
+
+    if ((dataID == true)&&(dataPW == true)) {
+      // home화면으로
+      Navigator.pushNamed(context, '/home');
+    }
+    else { //저장X인 경우 다이얼로그
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0)),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    "Please check your email or password",
                   ),
                 ],
-              );
-            });
-      }
+              ),
+              actions: <Widget>[
+                new FlatButton(
+                  child: new Text("OK"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            );
+          });
+    }
     }
 }
 

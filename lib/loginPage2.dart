@@ -176,10 +176,45 @@ class _LoginPageState extends State<LoginPage> {
     bool dataID = false;
     bool dataPW = false;
 
+    /*
+      if ((doc["Email"] == "${InputUser.email}") && (doc["Password"] == "${InputUser.pw}")) {
+        Navigator.pushNamed(context, '/home');
+      }
+      else {
+        showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0)),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "Please check your email or password",
+                    ),
+                  ],
+                ),
+                actions: <Widget>[
+                  new FlatButton(
+                    child: new Text("OK"),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              );
+            });
+      }
+     */
+/*
     //dataID 와 dataPW 가 있는 documents가 있을때 실행하는 실행문을 적는게 아닌가? 왜 false지?
     Firestore.instance.collection("User").where("Email", isEqualTo: InputUser.email)
         .getDocuments().then((querySnapshot) => {
-      dataPW = true
+      dataID = true,
+      print("dataID값 : $dataID"),
     });
 
     Firestore.instance.collection("User").where("Password", isEqualTo: InputUser.pw)
@@ -222,8 +257,10 @@ class _LoginPageState extends State<LoginPage> {
             );
           });
     }
+    */
 
-/*//임시
+/*
+//임시
     var saveID = Firestore.instance.collection("User").where("Email", isEqualTo: InputUser.email);
     if(saveID != null)  dataID = true;
 
@@ -262,7 +299,8 @@ class _LoginPageState extends State<LoginPage> {
               ],
             );
           });
-    }*/
+    }
+ */
 /*
     //아이디,비밀번호가 저장되어있을때
     Firestore.instance.collection('User').document().get()
