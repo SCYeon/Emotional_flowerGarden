@@ -196,12 +196,16 @@ class _LoginPageState extends State<LoginPage> {
         .getDocuments().then((querySnapshot) => {
       dataID = true,
       print("dataID값 : $dataID"),
+
+      Firestore.instance.collection("User").where("Password", isEqualTo: InputUser.pw)
+        .getDocuments().then((querySnapshot) => {
+        dataPW = true
+        }),
+
+      print("dataPW값: $dataPW"),
     });
 
-    Firestore.instance.collection("User").where("Password", isEqualTo: InputUser.pw)
-        .getDocuments().then((querySnapshot) => {
-      dataPW = true
-    });
+
 
     print("INPUT값: ${InputUser.email}, ${InputUser.pw}\n dataID 값: $dataID, dataPW 값: $dataPW");
 

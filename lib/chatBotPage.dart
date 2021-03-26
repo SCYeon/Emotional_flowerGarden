@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_dialogflow/dialogflow_v2.dart';
-import 'HomePage.dart';
 
 void main() => runApp(new ChatBot());
 
@@ -93,7 +91,7 @@ class _chatBotPage extends State<chatBotPage> {
       appBar: new AppBar(
         centerTitle: true,
         title: Text(
-          "Flower_ChatBot",
+          "Talking with Garden Bird",
           style: TextStyle(
             color: Colors.black,
             fontFamily: 'indieFlower',
