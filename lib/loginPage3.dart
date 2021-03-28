@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class User{
   var email;
@@ -54,9 +54,10 @@ class _LoginPageState extends State<LoginPage> {
     return Center(child: CircularProgressIndicator(),);
   }
 
-  _buildBody() {
-    return SingleChildScrollView(
-      child: Center(
+  _buildBody(DocumentSnapshot doc) {
+    return ListView(
+      children: <Widget> [
+        SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.all(10),
           child: Form(
@@ -108,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
                             color: Colors.white)),
                     color: Colors.blueGrey,
                     onPressed: () {
-                      _buildLogin(User(emailController.text, passwordController.text));
+                      _buildLogin(User(emailController.text, passwordController.text), doc);
                     },
                   ),
                 ),
@@ -141,84 +142,108 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
       ),
-    );
+      ]);
   }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery
-        .of(context)
-        .size;
+      .of(context)
+      .size;
     return Scaffold(
-      body: Center(
-        child: Container(
-          height: 700,
-          width: 450,
-          child: Stack(
-            children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: new NetworkImage(
-                            "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F3jfzU%2FbtqZoxR9Uew%2FtTGr9rT4vypHlNHG2N3Sy1%2Fimg.gif"),
-                        fit: BoxFit.fill)),
-              ),
-              _loading ? _buildLoading() : _buildBody(),
-            ],
-          ),
-        ),
-      ),
-    );
+      body: StreamBuilder<QuerySnapshot>(
+        //날짜 순으로 정렬
+          stream: Firestore.instance.collection("User").snapshots(),
+          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (!snapshot.hasData) {
+              return CircularProgressIndicator();
+            }
+            final documents = snapshot.data.documents;
+            //리스트 형식
+            return ListView(
+              children: <Widget>[
+                Center(
+                child: Container(
+                  height: 700,
+                  width: 450,
+                  child: Stack(
+                    children: <Widget>[
+                      Container(
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: new NetworkImage(
+                                    "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F3jfzU%2FbtqZoxR9Uew%2FtTGr9rT4vypHlNHG2N3Sy1%2Fimg.gif"
+                                ),
+                                fit: BoxFit.fill)),
+                      ),
+                      _loading ? _buildLoading() : documents.map<Widget>((doc) =>
+                          _buildBody(doc)).toList(),
+                    ],
+                  ),
+                ),
+              ),]
+            );
+          }),
+      );
   }
 
   //오류부분
-  Widget _buildLogin(User InputUser){
-    bool dataID = false;
-    bool dataPW = false;
+  Widget _buildLogin(User InputUser, DocumentSnapshot doc) {
+    var dataID;
+    var dataPW;
+//dataID 와 dataPW 가 있는 documents가 있을때 실행하는 실행문을 적는게 아닌가? 왜 false지?
     Firestore.instance.collection("User").where("Email", isEqualTo: InputUser.email)
         .getDocuments().then((querySnapshot) => {
       dataID = true,
       print("dataID값 : $dataID"),
 
       Firestore.instance.collection("User").where("Password", isEqualTo: InputUser.pw)
-          .getDocuments().then((querySnapshot) => {
-        dataPW = true,
-        print("dataPW값: $dataPW"),
+        .getDocuments().then((querySnapshot) => {
+        dataPW = true
+        }),
 
-        if ((dataID == true) && (dataPW == true)) {
-          // home화면으로
-          Navigator.pushNamed(context, '/home'),
-        }
-        else { //저장X인 경우 다이얼로그
-          showDialog(
-              context: context,
-              barrierDismissible: false,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0)),
-                  content: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        "Please check your email or password",
-                      ),
-                    ],
-                  ),
-                  actions: <Widget>[
-                    new FlatButton(
-                      child: new Text("OK"),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ],
-                );
-              }),
-        },
-      }),
+      print("dataPW값: $dataPW"),
     });
 
-  }
+
+
+    print("INPUT값: ${InputUser.email}, ${InputUser.pw}\n dataID 값: $dataID, dataPW 값: $dataPW");
+
+
+    if ((dataID == true)&&(dataPW == true)) {
+      // home화면으로
+      Navigator.pushNamed(context, '/home');
+    }
+    else { //저장X인 경우 다이얼로그
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0)),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    "Please check your email or password",
+                  ),
+                ],
+              ),
+              actions: <Widget>[
+                new FlatButton(
+                  child: new Text("OK"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            );
+          });
+    }
+    }
 }
+
+
+

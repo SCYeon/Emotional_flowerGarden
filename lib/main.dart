@@ -1,7 +1,7 @@
 import 'package:emotional_flowerpot/gardenPage.dart';
 import 'package:flutter/material.dart';
 import 'package:emotional_flowerpot/firstPage.dart';
-import 'package:emotional_flowerpot/loginPage2.dart';
+import 'package:emotional_flowerpot/loginPage.dart';
 import 'package:emotional_flowerpot/HomePage.dart';
 import 'package:emotional_flowerpot/ListPage.dart';
 import 'package:emotional_flowerpot/writingPage.dart';
