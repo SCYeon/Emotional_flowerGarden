@@ -86,7 +86,7 @@ class _TextPageState extends State<TextPage> {
                       style: TextStyle(fontFamily: 'Gaegu'),
                       controller: _Email,
                       decoration: InputDecoration(
-                        hintText: "ID",
+                        hintText: "EMAIL",
                         fillColor: Colors.grey[300],
                         filled: true,
                       ),
