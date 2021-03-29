@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "flowerbot-slxv",
+  "private_key_id": "09e7d3ef1ebbeb13d96183691c4fe45bf28d732b",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCk4qyOsWipAREB\n+x8ZCq6bzfZjfr6RjthVryhm2K+GsmcIGKCqBn6g1A9XAzgzqaCueRUulbbduGyO\nej4D9apKW6E/QGQbJQ3U6YTN2AdcPH9GlVpdJmU+ghHCKz4xpbUp5ENNRTK4PzIo\nOTz0zm9DSIdyZ7LhL2IGQOXkzeb+x1W8EAy1i1yaiEFSwPed3NmfIuDnpXy9HnKO\nYXcTdcjHjwUUbyQtlxWbyInqtj6kWOS5C3c6IEPbvlUgeDnmFDXnnIpE54rjcn9t\nQ7uFQvRpxrn4SOI5zopGC7Eq4F3ST7+L4mmWpvtU7FeT9J0ptT3u5CDQCYPc4JBL\nVNvRDB65AgMBAAECggEAA2Yk1oAzvyAlgJvzpSmCNfYF+UEYnpmKPiHxPEWFQMqW\nsyUG0tp1a81TT6DiXLZHeLFITYCKl4GAw2MjuiMrUoMXDN2/8otOALCbqz6j0DPz\nD7pudXMgLSyzPwRzMMTQuj9ZX9NoW0H6P7gGWKmUw5dQK3yVxGycobJeytuvwlrD\nH1h16rg2Np9637ZuIGKgIF/q5SIhVNa/Tp5gKeP8srQ7UZ0X90TkpNUtCB3RPWoX\nIdo3BytdtMcL8TpQp8yhqUf8le53DEEyksFnN+yWveqyDnJBj4X+GioxGgZYOgeJ\n3B6A8cvRDlFeeGZdC3XIDpwSWtZc1x6LtaHe7zA2/QKBgQDYRkOWXI8mDQBhDNsV\nLmq2WB8+K/UyRqX3lXUhOlRjQHeDaIi6KxLeWX+H3bweZe8kLG14d1Li53shOovf\nY2K+EyqIMx669+NmfUOw2bD4Bpaxldmrh2hP2q2mq94HkC0I6aA6v9shA0mPJ+QG\n6LIzY7nZQ4w4v78Y8XAGD27IAwKBgQDDK/oUWPX5AApXC9tNuKK9VQcvUxX1Y1E6\negaGr5qO5ReAkFiQ+dOg2zy3hqhjd/SLUEs2BNv+M/pNbVv8H4k1hnFGfZgeCve6\nZCla85zZnXeqLnSEnmXrj+IQhMx5brXHLytuo95zZpayGy8zLzuZuS/ICiyhzvzt\nXoVqHX0XkwKBgCgwFksQdAEsFU/zZZpv/6BWi6ev32YyPpDdEuDTx+6RgiPG/vEp\nI95xXwNOLrCvXFqqbsUd1ycWwIiSKn+eJjEPuq2IYkN34Kegyz1HllzgTIw/Pi1j\ngfyks/Pup9lb7yJi10VTdVKTG84gKX0nLEXkWBqJNLsu1kG6S4i0wW8lAoGAG+8b\nZ/YjnnPnBvZneQRIJpkY4ikeJ3UDlz8H2BciI/meF4SRaI6ZP5ihZBMd3r64fYgM\ne7rOUd/Wn2ZbmAZbeRG4/MHVF9eyBTd4w8/CT1M+YVkszB5vr/tz+7FGIss5sTyL\nFtbVa+bvAqbpZoYIHcRnllX+dVpO0RqKNdnqoYkCgYBBMLJGbxyKf32hlbkXnk3C\ngm/4MzuZWPv2x3wx5ZY70L0mJqZPcxVSO26gCVvufZWPN20CKrZuJceytzL6KSNz\nfuIhECuJC2Fg70O4MNuaUUSz7CA/q8TAOnH1MVyUmtTlrzcTOJ9ZWyJF/jdt4Mxv\nbbcT8Pmz+gXPBF2kFgqusw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "bot-admin@flowerbot-slxv.iam.gserviceaccount.com",
+  "client_id": "109712297409074819915",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/bot-admin%40flowerbot-slxv.iam.gserviceaccount.com"
+}

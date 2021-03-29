@@ -101,7 +101,8 @@ class _LoginPageState extends State<LoginPage> {
                             color: Colors.white)),
                     color: Colors.blueGrey,
                     onPressed: () {
-                      _buildLogin(User(emailController.text, passwordController.text));
+                      Navigator.pushNamed(context, '/home');
+//                      _buildLogin(User(emailController.text, passwordController.text));
                     },
                   ),
                 ),
@@ -164,7 +165,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  //오류부분
+/*  //오류부분
   Widget _buildLogin(User InputUser){
     bool dataID = false;
     bool dataPW = false;
@@ -213,5 +214,6 @@ class _LoginPageState extends State<LoginPage> {
       }),
     });
 
-  }
+  }*/
+
 }

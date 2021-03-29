@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:intl/intl.dart';
-import 'gardenPage2.dart';
 
 class Date {
   var date;
@@ -107,7 +106,7 @@ Widget _homeMiddle(BuildContext context) {
     children: <Widget>[
       Expanded(flex: 1, child: SizedBox()),
       Expanded(
-        flex: 4,
+        flex: 5,
         child: SizedBox(
           height: 430,
           width: 330,
