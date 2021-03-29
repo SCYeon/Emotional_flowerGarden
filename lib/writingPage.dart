@@ -192,26 +192,82 @@ class _WritingPageState extends State<WritingPage> {
     int c = 0;
     if (today.emotion == 'happy') {
         c = ds.data["blueCount"];
+        int n;
+        Firestore.instance.collection("flower").document('list').get()
+            .then((DocumentSnapshot ds) {
+          n = ds.data['count'];
+          String t = "$n";
+          n = n + 1;
+          Firestore.instance.collection('flower').document('list').updateData({'count': n});
+          n = c + 100;
+          t = "$n";
+          Firestore.instance.collection('flower').document('list').updateData({t: 100});
+        });
         c = c + 1;
         Firestore.instance.collection('flower').document('count').updateData({'blueCount': c});
     }
     else if (today.emotion == 'good') {
         c = ds.data["greenCount"];
+
+        int n;
+        Firestore.instance.collection("flower").document('list').get()
+            .then((DocumentSnapshot ds) {
+          n = ds.data['count'];
+          String t = "$n";
+          n = n + 1;
+          Firestore.instance.collection('flower').document('list').updateData({'count': n});
+          n = c + 200;
+          t = "$n";
+          Firestore.instance.collection('flower').document('list').updateData({t: 200});
+        });
         c = c + 1;
         Firestore.instance.collection('flower').document('count').updateData({'greenCount': c});
     }
     else if (today.emotion == 'soso') {
         c = ds.data["purpleCount"];
+        int n;
+        Firestore.instance.collection("flower").document('list').get()
+            .then((DocumentSnapshot ds) {
+          n = ds.data['count'];
+          String t = "$n";
+          n = n + 1;
+          Firestore.instance.collection('flower').document('list').updateData({'count': n});
+          n = c + 300;
+          t = "$n";
+          Firestore.instance.collection('flower').document('list').updateData({t: 300});
+        });
         c = c + 1;
         Firestore.instance.collection('flower').document('count').updateData({'purpleCount': c});
     }
     else if (today.emotion == 'bad') {
         c = ds.data["redCount"];
+        int n;
+        Firestore.instance.collection("flower").document('list').get()
+            .then((DocumentSnapshot ds) {
+          n = ds.data['count'];
+          String t = "$n";
+          n = n + 1;
+          Firestore.instance.collection('flower').document('list').updateData({'count': n});
+          n = c + 400;
+          t = "$n";
+          Firestore.instance.collection('flower').document('list').updateData({t: 400});
+        });
         c = c + 1;
         Firestore.instance.collection('flower').document('count').updateData({'redCount': c});
     }
     else if (today.emotion == 'sad') {
         c = ds.data["yellowCount"];
+        int n;
+        Firestore.instance.collection("flower").document('list').get()
+            .then((DocumentSnapshot ds) {
+          n = ds.data['count'];
+          String t = "$n";
+          n = n + 1;
+          Firestore.instance.collection('flower').document('list').updateData({'count': n});
+          n = c + 500;
+          t = "$n";
+          Firestore.instance.collection('flower').document('list').updateData({t: 500});
+        });
         c = c + 1;
         Firestore.instance.collection('flower').document('count').updateData({'yellowCount': c});
     }}
@@ -242,33 +298,50 @@ class _WritingPageState extends State<WritingPage> {
           flower.blueCount;
 
       List<int> flowerIndex = List<int>(48);
-      print(count);
+      //print(count);
       int c = 0;
-      for (int j = 0; j < flower.redCount; j++) {
-        flowerIndex[c++] = j + 100;
+      /*for (int j = 0; j < flower.redCount; j++) {
+        String t = "$c";
+        fireStore.collection("flower").document('list')
+            .setData({ t: j + 100});
+        c++;
       }
       for (int j = 0; j < flower.blueCount; j++) {
-        flowerIndex[c++] = j + 200;
+        String t = "$c";
+        fireStore.collection("flower").document('list')
+            .setData({ t : j + 200});
+        c++;
       }
       for (int j = 0; j < flower.purpleCount; j++) {
-        flowerIndex[c++] = j + 300;
+        String t = "$c";
+        fireStore.collection("flower").document('list')
+            .setData({ t: j + 300});
+        c++;
       }
       for (int j = 0; j < flower.yellowCount; j++) {
-        flowerIndex[c++] = j + 400;
+        String t = "$c";
+        fireStore.collection("flower").document('list')
+            .setData({ t: j + 400});
+        c++;
       }
       for (int j = 0; j < flower.greenCount; j++) {
-        flowerIndex[c++] = j + 500;
+        String t = "$c";
+        fireStore.collection("flower").document('list')
+            .setData({ t: j + 500});
+        c++;
       }
       for (; c < 48; c++) {
-        flowerIndex[c] = 0;
-      }
-      flowerIndex.shuffle();
+        String t = "$c";
+        fireStore.collection("flower").document('list')
+            .setData({ t: 0});
+      }*/
+      /*flowerIndex.shuffle();
       fireStore.collection("flower").document('list').updateData({
         "flower_list":FieldValue.delete() });
 
       fireStore.collection('flower').document('list').updateData({
         'flower_list': FieldValue.arrayUnion(flowerIndex)
-      });
+      });*/
     });
 
     //저장 후 화면 리셋

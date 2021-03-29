@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -43,11 +44,17 @@ class gardenPage2 extends StatelessWidget {
     List l = [0,0,0,0,100,0,0,0,0,200,300,0,0,0,0,0,0,0,0,0,0,400,0,0,0,0,0,500,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,0,300,0];
 
     Widget flowerImageChange(int i) {
-      if(l[i] >= 500) return Image.asset('assets/green_good.png');
-      else if(l[i] >= 400) return Image.asset('assets/yellow_sad.png');
-      else if(l[i] >= 300) return Image.asset('assets/purple_soso.png');
-      else if(l[i] >= 200) return Image.asset('assets/blue_happy.png');
-      else if(l[i] >= 100) return Image.asset('assets/red_bad.png');
+      int num;
+      String t = "$i";
+      Firestore.instance.collection("flower").document('list').get()
+          .then((DocumentSnapshot ds){
+        num = ds.data[t];
+        if(num >= 500) return Image.asset('assets/green_good.png');
+        else if(num >= 400) return Image.asset('assets/yellow_sad.png');
+        else if(num >= 300) return Image.asset('assets/purple_soso.png');
+        else if(num >= 200) return Image.asset('assets/blue_happy.png');
+        else if(num >= 100) return Image.asset('assets/red_bad.png');
+      });
       return Image.asset('assets/null_image.png');
     }
 
