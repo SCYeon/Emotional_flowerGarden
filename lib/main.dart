@@ -10,6 +10,8 @@ import 'package:emotional_flowerpot/developers.dart';
 import 'package:emotional_flowerpot/signUpPage.dart';
 import 'package:emotional_flowerpot/chatBotPage.dart';
 
+import 'firstPage.dart';
+
 void main() {
   runApp(MyApp());
 }
