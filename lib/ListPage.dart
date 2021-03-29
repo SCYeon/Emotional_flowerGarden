@@ -31,7 +31,7 @@ class _ListPageState extends State<ListPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "You And Garden",
+          "You And Gardenflower",
           style: TextStyle(
             color: Colors.black,
             fontFamily: 'IndieFlower',

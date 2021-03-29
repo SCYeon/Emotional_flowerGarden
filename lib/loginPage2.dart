@@ -5,6 +5,7 @@ import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
+
 class User{
   var email;
   var pw;
@@ -175,10 +176,55 @@ class _LoginPageState extends State<LoginPage> {
   Widget _buildLogin(User InputUser){
     bool dataID = false;
     bool dataPW = false;
+
+    var ref = firebase.database().ref();
+
+    ref.reference().once("value").then((Datasnapshot snapshot){
+      var dataID = snapshot.hasChild("${InputUser.email}");
+      var dataPW = snapshot.hasChild("${InputUser.pw}");
+        if ((dataID == true) && (dataPW == true)) {
+          // home화면으로
+          Navigator.pushNamed(context, '/home');
+        }
+        else { //저장X인 경우 다이얼로그
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0)),
+                content: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    "Please check your email or password",
+                  ),
+                ],
+              ),
+                actions: <Widget>[
+                  new FlatButton(
+                    child: new Text("OK"),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              );
+            });
+          }
+        });
+
+
+  }
+/*
     Firestore.instance.collection("User").where("Email", isEqualTo: InputUser.email)
         .getDocuments().then((querySnapshot) => {
-      dataID = true,
-      print("dataID값 : $dataID"),
+          snapshot.forEach((DocumentSnapshot){
+            dataID = true;
+            print("dataID값 : $dataID");
+            })
 
       Firestore.instance.collection("User").where("Password", isEqualTo: InputUser.pw)
           .getDocuments().then((querySnapshot) => {
@@ -219,8 +265,7 @@ class _LoginPageState extends State<LoginPage> {
           },
           }),
     });
-
-    }
+*/
 /*
       if ((doc["Email"] == "${InputUser.email}") && (doc["Password"] == "${InputUser.pw}")) {
         Navigator.pushNamed(context, '/home');
@@ -303,7 +348,6 @@ class _LoginPageState extends State<LoginPage> {
           });
     }
     */
-
 /*
 //임시
     var saveID = Firestore.instance.collection("User").where("Email", isEqualTo: InputUser.email);

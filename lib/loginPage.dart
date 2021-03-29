@@ -11,13 +11,6 @@ class User{
 
   User(this.email, this.pw);
 }
-class UserData{
-  var saveID;
-  var savePW;
-
-  UserData(saveId, savePW);
-}
-var saveUser;
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);

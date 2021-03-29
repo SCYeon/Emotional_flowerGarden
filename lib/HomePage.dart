@@ -147,7 +147,7 @@ Widget _homeMiddle(BuildContext context) {
                 new LayoutBuilder(
 
                   builder: (context, constraint) {
-                    return new Text('가든으로 가기');
+                    return new Text('Go to the Garden');
                   },
                 ),
               ],
@@ -156,7 +156,6 @@ Widget _homeMiddle(BuildContext context) {
                 borderRadius: new BorderRadius.circular(20.0)),
             color: Colors.white,
             onPressed: () async {
-
               Navigator.pushNamed(context, '/garden');
             },
           ),
