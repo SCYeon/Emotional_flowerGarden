@@ -1,4 +1,4 @@
-# EmotionalFlowerpot
+# EmotionalFlowerGarden
 
 Record your feelings, one line a day. 
 Your emotions will gather and bloom your own.
