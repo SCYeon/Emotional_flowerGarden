@@ -139,7 +139,7 @@ Widget _homeMiddle(BuildContext context) {
         flex: 1,
         child: SizedBox(
           height: 10,
-          width: 120,
+          width: 150,
           child: RaisedButton(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

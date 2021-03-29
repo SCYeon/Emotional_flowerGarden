@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blueGrey,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: firstPage(),
+      home: HomePage(),
       routes: {
         '/first': (context) => firstPage(),
         '/login': (context) => LoginPage(),

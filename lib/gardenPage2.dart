@@ -43,56 +43,7 @@ class gardenPage2 extends StatelessWidget {
     }
 
     //List flowerImage = ['assets/blue_happy.png', 'assets/green_good.png', 'assets/purple_soso.png','assets/red_bad.png', 'assets/yellow_sad.png'];
-    List l = [
-      0,
-      0,
-      0,
-      0,
-      100,
-      0,
-      0,
-      0,
-      0,
-      200,
-      300,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      400,
-      0,
-      0,
-      0,
-      0,
-      0,
-      500,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      100,
-      0,
-      300,
-      0
-    ];
+    List l = [0, 200, 0, 0, 100, 0, 0, 0, 0, 200, 300, 0, 0, 0, 0, 500, 0, 0, 200, 100, 0, 400, 0, 0, 300, 0, 0, 500, 0, 0, 0, 0, 0, 0, 300, 200, 0, 0, 400, 0, 0, 0, 100, 0, 100, 0, 300, 200];
 
     //Widget flowerImageChange(DocumentSnapshot doc) {
     Widget flowerImageChange(int i) {
@@ -111,11 +62,11 @@ class gardenPage2 extends StatelessWidget {
     }
 
     return Container(
-      child: StreamBuilder<QuerySnapshot>(
+      /*child: StreamBuilder<QuerySnapshot>(
           stream: Firestore.instance.collection('flower').snapshots(),
           builder: (context, snapshot) {
-            final documents = snapshot.data.documents;
-            return Expanded(
+            final documents = snapshot.data.documents;*/
+
               child: GridView.count(
                 crossAxisCount: 6,
                 children:
@@ -127,7 +78,6 @@ class gardenPage2 extends StatelessWidget {
                 }),
               ),
             );
-          }),
-    );
+
   }
 }
