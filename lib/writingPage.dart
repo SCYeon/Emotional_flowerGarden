@@ -199,8 +199,8 @@ class _WritingPageState extends State<WritingPage> {
           String t = "$n";
           n = n + 1;
           Firestore.instance.collection('flower').document('list').updateData({'count': n});
-          n = c + 100;
-          t = "$n";
+          //n = c + 100;
+          //t = "$n";
           Firestore.instance.collection('flower').document('list').updateData({t: 100});
         });
         c = c + 1;
@@ -216,8 +216,8 @@ class _WritingPageState extends State<WritingPage> {
           String t = "$n";
           n = n + 1;
           Firestore.instance.collection('flower').document('list').updateData({'count': n});
-          n = c + 200;
-          t = "$n";
+          //n = c + 200;
+          //t = "$n";
           Firestore.instance.collection('flower').document('list').updateData({t: 200});
         });
         c = c + 1;
@@ -232,8 +232,8 @@ class _WritingPageState extends State<WritingPage> {
           String t = "$n";
           n = n + 1;
           Firestore.instance.collection('flower').document('list').updateData({'count': n});
-          n = c + 300;
-          t = "$n";
+          //n = c + 300;
+          //t = "$n";
           Firestore.instance.collection('flower').document('list').updateData({t: 300});
         });
         c = c + 1;
@@ -248,8 +248,8 @@ class _WritingPageState extends State<WritingPage> {
           String t = "$n";
           n = n + 1;
           Firestore.instance.collection('flower').document('list').updateData({'count': n});
-          n = c + 400;
-          t = "$n";
+         // n = c + 400;
+          //t = "$n";
           Firestore.instance.collection('flower').document('list').updateData({t: 400});
         });
         c = c + 1;
@@ -264,8 +264,8 @@ class _WritingPageState extends State<WritingPage> {
           String t = "$n";
           n = n + 1;
           Firestore.instance.collection('flower').document('list').updateData({'count': n});
-          n = c + 500;
-          t = "$n";
+          //n = c + 500;
+          //t = "$n";
           Firestore.instance.collection('flower').document('list').updateData({t: 500});
         });
         c = c + 1;
