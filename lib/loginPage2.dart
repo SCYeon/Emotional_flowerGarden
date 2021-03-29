@@ -176,7 +176,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget _buildLogin(User InputUser){
     bool dataID = false;
     bool dataPW = false;
-
+/*
     var ref = firebase.database().ref();
 
     ref.reference().once("value").then((Datasnapshot snapshot){
@@ -215,7 +215,7 @@ class _LoginPageState extends State<LoginPage> {
             });
           }
         });
-
+*/
 
   }
 /*
