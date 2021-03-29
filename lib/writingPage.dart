@@ -100,7 +100,7 @@ class _WritingPageState extends State<WritingPage> {
                 height: 10,
               ),
               Text(
-                "오늘의 감정은 어떠신가요?",
+                "How do you feel today?",
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.grey,
@@ -162,7 +162,7 @@ class _WritingPageState extends State<WritingPage> {
                   controller: _todayController,
                   maxLines: maxLines,
                   decoration: InputDecoration(
-                    hintText: "어떤 하루를 보냈나요?",
+                    hintText: "How did you spend your day?",
                     fillColor: Colors.grey[300],
                     filled: true,
                   ),
@@ -363,13 +363,13 @@ class _WritingPageState extends State<WritingPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  "저장되었습니다.",
+                  "Saved",
                 ),
               ],
             ),
             actions: <Widget>[
               new FlatButton(
-                child: new Text("확인"),
+                child: new Text("OK"),
                 onPressed: () {
                   Navigator.pop(context);
                 },

@@ -25,7 +25,7 @@ class _gardenPageState extends State<gardenPage> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          "Emotional Flowerpot",
+          "Emotional Flower Garden",
         ),
       ),
       body: Container(
