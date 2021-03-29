@@ -89,53 +89,65 @@ class ListPageBody extends StatelessWidget {
                     .document(doc.documentID)
                     .delete();
 
-                int c = 0;
-                if (todayDiary.emotion == 'happy') {
-                  Firestore.instance.collection("flower").document("count").get()
-                      .then((DocumentSnapshot ds) {
+                Firestore.instance.collection("flower").document("delCount").get()
+                .then((DocumentSnapshot ds) {
+                  int c = 0;
+                  if (todayDiary.emotion == 'happy') {
                     c = ds.data["blueCount"];
-                    Firestore.instance.collection("flower").document('list').updateData({
-                      "flower_list":FieldValue.arrayRemove([c+200-1]) });
-                    c = c - 1;
-                    Firestore.instance.collection('flower').document('count').updateData({'blueCount': c});});
-                }
-                else if (todayDiary.emotion == 'good') {
-                  Firestore.instance..collection("flower").document("count").get()
-                      .then((DocumentSnapshot ds) {
+                    int n;
+                    n = c + 100;
+                    String t = "$n";
+                    Firestore.instance.collection('flower').document('list').updateData({t: 0});
+                      c = c + 1;
+                      Firestore.instance.collection('flower')
+                          .document('delCount')
+                          .updateData({'blueCount': c});
+                    }
+                  else if (todayDiary.emotion == 'good') {
                     c = ds.data["greenCount"];
-                    Firestore.instance.collection("flower").document('list').updateData({
-                      "flower_list":FieldValue.arrayRemove([c+500-1]) });
-                    c = c - 1;
-                    Firestore.instance..collection('flower').document('count').updateData({'greenCount': c});});
-                }
-                else if (todayDiary.emotion == 'soso') {
-
-                  Firestore.instance.collection("flower").document("count").get()
-                      .then((DocumentSnapshot ds) {
+                    int n;
+                    n = c + 200;
+                    String t = "$n";
+                    Firestore.instance.collection('flower').document('list').updateData({t: 0});
+                    c = c + 1;
+                    Firestore.instance.collection('flower')
+                        .document('delCount')
+                        .updateData({'greenCount': c});
+                  }
+                  else if (todayDiary.emotion == 'soso') {
                     c = ds.data["purpleCount"];
-                  Firestore.instance.collection("flower").document('list').updateData({
-                      "flower_list":FieldValue.arrayRemove([c+300-1]) });
-                    c = c - 1;
-                    Firestore.instance.collection('flower').document('count').updateData({'purpleCount': c});});
-                }
-                else if (todayDiary.emotion == 'bad') {
-                  Firestore.instance.collection("flower").document("count").get()
-                      .then((DocumentSnapshot ds) {
+                    int n;
+                    n = c + 300;
+                    String t = "$n";
+                    Firestore.instance.collection('flower').document('list').updateData({t: 0});
+                    c = c + 1;
+                    Firestore.instance.collection('flower')
+                        .document('delCount')
+                        .updateData({'purpleCount': c});
+                  }
+                  else if (todayDiary.emotion == 'bad') {
                     c = ds.data["redCount"];
-                    Firestore.instance.collection("flower").document('list').updateData({
-                      "flower_list":FieldValue.arrayRemove([c+100-1]) });
-                    c = c - 1;
-                    Firestore.instance.collection('flower').document('count').updateData({'redCount': c});});
-                }
-                else if (todayDiary.emotion == 'sad') {
-                  Firestore.instance.collection("flower").document("count").get()
-                      .then((DocumentSnapshot ds) {
+                    int n;
+                    n = c + 400;
+                    String t = "$n";
+                    Firestore.instance.collection('flower').document('list').updateData({t: 0});
+                    c = c + 1;
+                    Firestore.instance.collection('flower')
+                        .document('delCount')
+                        .updateData({'redCount': c});
+                  }
+                  else if (todayDiary.emotion == 'sad') {
                     c = ds.data["yellowCount"];
-                    Firestore.instance.collection("flower").document('list').updateData({
-                      "flower_list":FieldValue.arrayRemove([c+400-1]) });
-                    c = c - 1;
-                    Firestore.instance.collection('flower').document('count').updateData({'yellowCount': c});});
-                }
+                    int n;
+                    n = c + 500;
+                    String t = "$n";
+                    Firestore.instance.collection('flower').document('list').updateData({t: 0});
+                    c = c + 1;
+                    Firestore.instance.collection('flower')
+                        .document('delCount')
+                        .updateData({'yellowCount': c});
+                  }
+                });
               },
             ),
           ),
