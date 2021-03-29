@@ -103,7 +103,7 @@ Widget _homeMiddle(BuildContext context) {
     children: <Widget>[
       Expanded(flex: 1, child: SizedBox()),
       Expanded(
-        flex: 4,
+        flex: 5,
         child: SizedBox(
           height: 430,
           width: 330,
@@ -113,7 +113,6 @@ Widget _homeMiddle(BuildContext context) {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 new LayoutBuilder(
-
                   builder: (context, constraint) {
                     return new Image(
                         image: AssetImage('assets/bird_chat.PNG'),fit: BoxFit.fill
@@ -131,10 +130,11 @@ Widget _homeMiddle(BuildContext context) {
           ),
         ),
       ),
+      Expanded(flex: 1, child: SizedBox()),
       Expanded(
         flex: 1,
         child: SizedBox(
-          height: 10,
+          height: 20,
           width: 150,
           // ignore: deprecated_member_use
           child: RaisedButton(
