@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:intl/intl.dart';
-import 'gardenPage2.dart';
 
 class Date {
   var date;
@@ -26,9 +25,6 @@ class _HomePageState extends State<HomePage> {
         body: Container(
           decoration: BoxDecoration(
             color: Colors.white,
-            /*image: DecorationImage(
-                  image: AssetImage("assets/background2.png"),
-                  fit: BoxFit.cover)*/
           ),
           child: Scaffold(
             backgroundColor: Colors.transparent,
@@ -70,6 +66,7 @@ Widget _homeTop() {
           Expanded(flex: 1, child: SizedBox()),
           Expanded(
             flex: 4,
+            // ignore: deprecated_member_use
             child: RaisedButton(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -79,7 +76,6 @@ Widget _homeTop() {
                       return AutoSizeText(
                         now3Fo,
                         style: TextStyle(fontSize: 25),
-                        //minimum font size
                         minFontSize: 10,
                         stepGranularity: 10,
                         maxLines: 4,
@@ -111,6 +107,7 @@ Widget _homeMiddle(BuildContext context) {
         child: SizedBox(
           height: 430,
           width: 330,
+          // ignore: deprecated_member_use
           child: RaisedButton(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -129,7 +126,6 @@ Widget _homeMiddle(BuildContext context) {
                 borderRadius: new BorderRadius.circular(20.0)),
             color: Colors.white,
             onPressed: () async {
-
               Navigator.pushNamed(context, '/chat');
             },
           ),
@@ -140,12 +136,12 @@ Widget _homeMiddle(BuildContext context) {
         child: SizedBox(
           height: 10,
           width: 150,
+          // ignore: deprecated_member_use
           child: RaisedButton(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 new LayoutBuilder(
-
                   builder: (context, constraint) {
                     return new Text('Go to the Garden');
                   },

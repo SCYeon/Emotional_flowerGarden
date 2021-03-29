@@ -10,6 +10,8 @@ import 'package:emotional_flowerpot/developers.dart';
 import 'package:emotional_flowerpot/signUpPage.dart';
 import 'package:emotional_flowerpot/chatBotPage.dart';
 
+import 'firstPage.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -25,7 +27,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blueGrey,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: HomePage(),
+      home: firstPage(),
       routes: {
         '/first': (context) => firstPage(),
         '/login': (context) => LoginPage(),
